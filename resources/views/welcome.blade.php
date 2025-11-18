@@ -99,6 +99,11 @@
 
 <div class="container">
     <h2>Products List</h2>
+    <form method="GET" action="{{ url('/dashboard') }}" style="margin-bottom:20px; text-align:center;">
+    <input type="text" name="search" placeholder="Search products..." value="{{ $search ?? '' }}" style="padding:8px 12px; width:250px; border-radius:6px; border:1px solid #ccc;">
+    <button type="submit" style="padding:8px 15px; background:#4a90e2; color:white; border:none; border-radius:6px; cursor:pointer;">Search</button>
+</form>
+
     <table>
         <thead>
             <tr>

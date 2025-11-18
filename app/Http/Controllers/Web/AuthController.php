@@ -73,12 +73,17 @@ class AuthController extends Controller
         }
     }
 
-    public function dashboard(){
+    public function dashboard(Request $request)
+    {
+        $search = $request->input('search');
 
-        $products = Product::paginate(8);
+        $products = Product::when($search, function($query, $search) {
 
-        return view('welcome', compact('products'));
+            return $query->where('name', 'like', "%{$search}%");
 
+        })->paginate(8);
+
+        return view('welcome', compact('products', 'search'));
     }
 
     public function logout() {
