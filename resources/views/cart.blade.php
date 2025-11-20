@@ -54,6 +54,17 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .qty-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: #4a90e2;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+    .qty-btn:hover { background: #3579c6; }
     </style>
 </head>
 <body>
@@ -76,6 +87,7 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +105,23 @@
                         <td>{{ $srno++ }}</td>
                         <td>{{ $item->product->name }}</td>
                         <td>₹{{ number_format($item->product->price, 2) }}</td>
-                        <td>{{ $item->quantity }}</td>
+                        <td>
+                            <div style="display:flex; align-items:center;">
+                                <button class="qty-btn" data-id="{{ $item->id }}" data-type="decrease">−</button>
+
+                                <span id="qty-{{ $item->id }}" style="padding: 0 10px;">
+                                    {{ $item->quantity }}
+                                </span>
+
+                                <button class="qty-btn" data-id="{{ $item->id }}" data-type="increase">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ url('remove-item/'.$item->id) }}" 
+                            style="color:red; font-weight:bold;">
+                            X
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -104,6 +132,42 @@
         </div>
     @endif
 </div>
-
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).on('click', '.qty-btn', function() {
+
+    let cartId = $(this).data('id');
+
+    let type = $(this).data('type');
+
+    $.ajax({
+
+        url: "/cart/update",
+    
+        method: "POST",
+    
+        data: {
+    
+            _token: "{{ csrf_token() }}",
+    
+            id: cartId,
+    
+            action: type
+    
+        },
+    
+        success: function(res) {
+
+            $("#qty-" + cartId).text(res.quantity);
+
+
+            $(".total-box").text("Total: ₹" + res.total.toFixed(2));
+        }
+    });
+
+});
+</script>
+
 </html>

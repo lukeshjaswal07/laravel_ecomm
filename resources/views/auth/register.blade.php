@@ -2,34 +2,47 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Register</h2>
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $errors->first() }}</div>
-    @endif
-    <form method="POST" action="{{ url('register') }}">
-        @csrf
-        <div class="mb-3">
-        <label>Name</label>
-        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+    <div class="row">
+
+        <div class="col-md-6">
+            <h2>Register</h2>
+
+            @if($errors->any())
+                <div class="alert alert-danger">{{ $errors->first() }}</div>
+            @endif
+
+            <form method="POST" action="{{ url('register') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label>Name</label>
+                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ old('email') }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="form-control" required>
+                </div>
+
+                <button class="btn btn-primary">Register</button>
+                <a href="{{ url('login') }}" class="btn btn-link">Login</a>
+            </form>
         </div>
 
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" value="{{ old('email') }}" class="form-control" required>
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img src="https://imgs.search.brave.com/kJwBZ2rFny0BUhXjyyjHF7OGVNmRrdT-BqEYGldGUts/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMucHJpc21pYy5p/by9haXItY29ycG9y/YXRlL1pncHltY3Qy/VVVjdkJUcDNfVW50/aXRsZWRkZXNpZ24t/NTMtLmpwZz9hdXRv/PWZvcm1hdCxjb21w/cmVzcyZmaXQ9bWF4/Jnc9Njg2Jmg9NDAw" class="img-fluid rounded shadow">
         </div>
 
-        <div class="mb-3">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label>Confirm Password</label>
-            <input type="password" name="password_confirmation" class="form-control" required>
-        </div>
-
-        <button class="btn btn-primary">Register</button>
-        <a href="{{ url('login') }}" class="btn btn-link">Login</a>
-    </form>
+    </div>
 </div>
 @endsection

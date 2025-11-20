@@ -41,3 +41,7 @@ Route::get('/view-product/{id}',[WebController::class,"view_product"]);
 Route::get('/cart/add/{id}', [WebController::class, 'addToCart']);
 
 Route::get('/cart/view', [WebController::class, 'viewCart']);
+
+Route::post('/cart/update', [WebController::class, 'updateCart']);
+
+Route::get('/remove-item/{id}', [WebController::class, 'removeItem']);

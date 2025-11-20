@@ -12,6 +12,7 @@ class AuthCheck
         $isLoggedIn = session()->has('user_id');
 
         $protectedRoutes = [
+            
             'dashboard',
 
             'cart/add/*',

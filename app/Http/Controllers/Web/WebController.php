@@ -54,4 +54,46 @@ class WebController extends Controller
 
     }
 
+    public function updateCart(Request $request)
+    {
+        $cart = Cart::where('id', $request->id)->where('user_id', session('user_id'))->first();
+
+        if (!$cart) return response()->json(['error' => 'Not found'], 404);
+
+        if ($request->action == 'increase') {
+
+            $cart->quantity += 1;
+
+        } else if ($request->action == 'decrease' && $cart->quantity > 1) {
+
+            $cart->quantity -= 1;
+
+        }
+
+        $cart->save();
+
+        $total = Cart::where('user_id', session('user_id'))->with('product')->get()->sum(function($item){ 
+            
+                return $item->product->price * $item->quantity;
+            
+            });
+
+        return response()->json([
+  
+            'quantity' => $cart->quantity,
+  
+            'total' => $total
+  
+        ]);
+    }
+
+    public function removeItem($id)
+    {
+        $item = Cart::findOrFail($id);   
+
+        $item->delete();                 
+
+        return redirect()->back()->with('success', 'Item removed from cart');
+    }
+
 }
