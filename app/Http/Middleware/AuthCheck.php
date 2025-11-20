@@ -9,15 +9,35 @@ class AuthCheck
 {
     public function handle(Request $request, Closure $next)
     {
+        $isLoggedIn = session()->has('user_id');
 
-        if (!session()->has('user_id') && ($request->path() == 'dashboard')) {
-            return redirect('/login')->with('error', 'You must login first');
+        $protectedRoutes = [
+            'dashboard',
+
+            'cart/add/*',
+
+            'cart/view',
+
+        ];
+
+        foreach ($protectedRoutes as $route) {
+
+            if ($request->is($route) && !$isLoggedIn) {
+            
+                return redirect('/login')->with('error', 'You must login first');
+            
+            }
+        
         }
 
-        if (session()->has('user_id') && ($request->path() == 'login' || $request->path() == 'register')) {
+
+        if ($isLoggedIn && ($request->is('login') || $request->is('register'))) {
+
             return redirect('/dashboard');
+
         }
 
         return $next($request);
     }
+
 }

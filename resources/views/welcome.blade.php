@@ -95,6 +95,10 @@
         @csrf
         <button type="submit" style="background:#dc3545; color:white; padding:8px 15px; border:none; border-radius:6px; cursor:pointer; font-size:14px;">Logout</button>
     </form>
+    <a href="/cart/view" class="btn" style="background:#4a90e2; color:white; padding:8px 15px; border-radius:6px; text-decoration:none;">
+        View Cart
+    </a>
+
 </nav>
 
 <div class="container">
@@ -103,7 +107,11 @@
     <input type="text" name="search" placeholder="Search products..." value="{{ $search ?? '' }}" style="padding:8px 12px; width:250px; border-radius:6px; border:1px solid #ccc;">
     <button type="submit" style="padding:8px 15px; background:#4a90e2; color:white; border:none; border-radius:6px; cursor:pointer;">Search</button>
 </form>
-
+        @if(session('success'))
+            <div style="background:#28a745; color:white; padding:10px; border-radius:6px; margin-bottom:15px;">
+                {{ session('success') }}
+            </div>
+        @endif
     <table>
         <thead>
             <tr>
@@ -123,6 +131,9 @@
                 <td data-label="Stock">{{ $product->stock }}</td>
                 <td data-label="Actions">
                     <a href="{{ url('/view-product', $product->id) }}" class="btn btn-edit">View Product</a>
+                    <a href="/cart/add/{{ $product->id }}" class="btn btn-edit" style="background:#28a745; margin-left:10px;">
+                        Add to Cart
+                    </a>
                 </td>
             </tr>
             @empty

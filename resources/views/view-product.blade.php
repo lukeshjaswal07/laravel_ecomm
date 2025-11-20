@@ -80,6 +80,7 @@
     </div>
 
     <a href="/dashboard" class="btn-back">← Back to Products</a>
+    
 </div>
 
 </body>

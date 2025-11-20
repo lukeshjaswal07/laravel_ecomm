@@ -1,0 +1,43 @@
+Steps to Set Up the Laravel Project:
+
+1). Clone the repository using Git:
+
+2). Install or update Composer dependencies:
+
+composer install
+
+
+3). Copy the .env file to the root of the project.
+
+4). Create a new database named ecommerce_db.
+
+Run migrations to create the database tables:
+
+php artisan migrate
+
+
+5). Seed the database with initial data:
+
+php artisan db:seed
+
+
+6). Start the Laravel development server:
+
+php artisan serve
+
+After setting up the project:
+
+You can register and log in to access the application.
+
+The dashboard is protected using middleware, ensuring only authenticated users can access it.
+
+On the dashboard, you can view all products with Pagination and also check single product details, also with searching functionality.
+
+Additionally, the project provides API endpoints to:
+
+Log in
+
+Fetch all products
+
+Fetch a single product
+

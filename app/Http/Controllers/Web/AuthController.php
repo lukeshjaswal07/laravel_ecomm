@@ -62,6 +62,8 @@ class AuthController extends Controller
 
             }
 
+            auth()->login($user);
+
             session(['user_id' => $user->id]);
 
             return redirect("/dashboard");

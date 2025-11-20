@@ -37,3 +37,7 @@ Route::post('/login',[AuthController::class,"login"]);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/view-product/{id}',[WebController::class,"view_product"]);
+
+Route::get('/cart/add/{id}', [WebController::class, 'addToCart']);
+
+Route::get('/cart/view', [WebController::class, 'viewCart']);
